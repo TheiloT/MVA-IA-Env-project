@@ -69,7 +69,11 @@ def _evaluate_model(train_series, test_series, model, output_dir, conformal_alph
     start_past_time = whole_series.start_time()
     end_past_time = calibration_series.start_time() - pd.Timedelta(days=1)
     while end_past_time <= calibration_series.end_time()-pd.Timedelta(days=conformal_prediction_horizon):
-        pred = model.predict(n=conformal_prediction_horizon, series=whole_series_scaled[start_past_time:end_past_time])
+        if isinstance(model, (AutoARIMA, Prophet)):
+            model.fit(series=whole_series_scaled[start_past_time:end_past_time])
+            pred = model.predict(n=conformal_prediction_horizon)
+        else:
+            pred = model.predict(n=conformal_prediction_horizon, series=whole_series_scaled[start_past_time:end_past_time])
         predictions_calibration.append(scaler.inverse_transform(pred))
         end_past_time = end_past_time + pd.Timedelta(days=conformal_prediction_horizon)
         start_past_time = start_past_time + pd.Timedelta(days=conformal_prediction_horizon)
@@ -84,7 +88,11 @@ def _evaluate_model(train_series, test_series, model, output_dir, conformal_alph
     start_past_time = whole_series.start_time() + pd.Timedelta(days=len(calibration_series))
     end_past_time = coverage_series.start_time() - pd.Timedelta(days=1)
     while end_past_time <= coverage_series.end_time()-pd.Timedelta(days=conformal_prediction_horizon):
-        pred = model.predict(n=conformal_prediction_horizon, series=whole_series_scaled[start_past_time:end_past_time])
+        if isinstance(model, (AutoARIMA, Prophet)):
+            model.fit(series=whole_series_scaled[start_past_time:end_past_time])
+            pred = model.predict(n=conformal_prediction_horizon)
+        else:
+            pred = model.predict(n=conformal_prediction_horizon, series=whole_series_scaled[start_past_time:end_past_time])
         predictions_coverage.append(scaler.inverse_transform(pred))
         end_past_time = end_past_time + pd.Timedelta(days=conformal_prediction_horizon)
         start_past_time = start_past_time + pd.Timedelta(days=conformal_prediction_horizon)
