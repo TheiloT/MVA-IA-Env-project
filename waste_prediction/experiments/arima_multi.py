@@ -1,6 +1,6 @@
 from darts.models import AutoARIMA
 
-from experiments.helpers_multi import run
+from waste_prediction.experiments.helpers_multi import run
 
 DATASET_LIST = [
     # ('boralasgamuwa_uc_2012-2018', '2016-05-01 00:00:00'),
@@ -36,3 +36,7 @@ def run_tests():
             'is_differenced': False,
         }
         run(params, generate_model_name, generate_model)
+
+
+if __name__ == '__main__':
+    run_tests()

@@ -1,7 +1,7 @@
 from darts.models import LightGBMModel
 from tqdm.auto import tqdm
 
-from helpers import run
+from waste_prediction.experiments.helpers import run
 
 DATASET_LIST = [
     # ('boralasgamuwa_uc_2012-2018', '2016-05-01 00:00:00'),
@@ -38,16 +38,19 @@ def run_tests():
     for dataset_name, test_calibration_split_before, empirical_coverage_split_before in DATASET_LIST:
         with tqdm(total=n_iter) as pbar:
             for n_lags in n_lags_list:
-                params ={
-                    'dataset_name': dataset_name,
-                    'test_calibration_split_before': test_calibration_split_before,
-                    'empirical_coverage_split_before': empirical_coverage_split_before,
-                    'only_weekdays': False,
-                    'is_differenced': False,
+                try:
+                    params ={
+                        'dataset_name': dataset_name,
+                        'test_calibration_split_before': test_calibration_split_before,
+                        'empirical_coverage_split_before': empirical_coverage_split_before,
+                        'only_weekdays': False,
+                        'is_differenced': False,
 
-                    'n_lags': n_lags
-                }
-                run(params, generate_model_name, generate_model)
+                        'n_lags': n_lags
+                    }
+                    run(params, generate_model_name, generate_model)
+                except:
+                    print('[Failure] n_lags:{}'.format(n_lags))
 
                 pbar.update(1)
 

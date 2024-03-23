@@ -12,6 +12,7 @@ from darts.metrics import mape
 from darts.metrics import rmse
 from darts.metrics import r2_score
 from darts.models import LinearRegressionModel, AutoARIMA, RandomForest, LightGBMModel, Prophet
+from waste_prediction.params import RESULTS_PATH, PROCESSED_DATA_PASS
 
 
 
@@ -19,12 +20,13 @@ def _compute_non_conformity_scores(fun, pred_series_list, actual_series):
     nc_scores = []
     conformal_prediction_horizon = len(pred_series_list[0])
     for i, pred_series in enumerate(pred_series_list):
+        # print(pred_series.pd_dataframe())
+        # print(actual_series[i*conformal_prediction_horizon:(i+1)*conformal_prediction_horizon].pd_dataframe())
         nc_scores.append(fun(pred_series, actual_series[i*conformal_prediction_horizon:(i+1)*conformal_prediction_horizon]))
     return nc_scores
 
 
 def _conformal_quantile(nc_scores, alpha):
-    print(nc_scores)
     n_cal = len(nc_scores)
     return np.quantile(nc_scores, np.ceil((1-alpha)*(n_cal+1))/n_cal)
 
@@ -61,6 +63,7 @@ def _evaluate_model(train_series, test_series, model, output_dir, conformal_alph
     test_pred_series = scaler.inverse_transform(test_pred_scaled)
     print('Validation predicted!')
     
+    print(f'Predicting conformal calibration over horizon of {conformal_prediction_horizon} days...')
     # Conformal calibration
     predictions_calibration = []  # Will contain the series of predictions for the calibration for periods of conformal_prediction_horizon
     start_past_time = whole_series.start_time()
@@ -71,6 +74,11 @@ def _evaluate_model(train_series, test_series, model, output_dir, conformal_alph
         end_past_time = end_past_time + pd.Timedelta(days=conformal_prediction_horizon)
         start_past_time = start_past_time + pd.Timedelta(days=conformal_prediction_horizon)
         
+    # print(predictions_calibration[0].pd_dataframe())
+    # print(predictions_calibration[1].pd_dataframe())
+    # print(whole_series[calibration_series.start_time():calibration_series.start_time()+pd.Timedelta(days=10)].pd_dataframe())
+        
+    print(f'Predicting conformal test over horizon of {conformal_prediction_horizon} days...')
     # Empirical coverage predictions
     predictions_coverage = []  # Will contain the series of predictions for the coverage for periods of conformal_prediction_horizon
     start_past_time = whole_series.start_time() + pd.Timedelta(days=len(calibration_series))
@@ -80,6 +88,10 @@ def _evaluate_model(train_series, test_series, model, output_dir, conformal_alph
         predictions_coverage.append(scaler.inverse_transform(pred))
         end_past_time = end_past_time + pd.Timedelta(days=conformal_prediction_horizon)
         start_past_time = start_past_time + pd.Timedelta(days=conformal_prediction_horizon)
+        
+    # print(predictions_coverage[0].pd_dataframe())
+    # print(predictions_coverage[1].pd_dataframe())
+    # print(whole_series[coverage_series.start_time():coverage_series.start_time()+pd.Timedelta(days=10)].pd_dataframe())
 
     # Rename variables
     actual_series = test_series
@@ -133,10 +145,10 @@ def _evaluate_model(train_series, test_series, model, output_dir, conformal_alph
         'training_time': training_end_time - training_start_time,
         'predicting_time': predicting_end_time - predicting_start_time
     }
-    with open('{}/summary.json'.format(output_dir), 'w') as f:
+    with open(os.path.join(output_dir, 'summary.json'), 'w') as f:
         json.dump(summary, f)
 
-    output_df.to_csv('{}/output.csv'.format(output_dir), index=False)
+    output_df.to_csv(os.path.join(output_dir, 'output.csv'), index=False)
 
     print(summary)
     
@@ -151,8 +163,8 @@ def run(params, generate_model_name, generate_model, conformal_alpha=0.05, confo
     is_differenced = params['is_differenced']
 
     # Config
-    daily_waste_data_file_path = '../processed_data/{}/imputed_data.csv'.format(dataset_name)
-    result_output_dir_path = '../results/{}'.format(dataset_name)
+    daily_waste_data_file_path = os.path.join(PROCESSED_DATA_PASS, dataset_name, 'imputed_data.csv')
+    result_output_dir_path = os.path.join(RESULTS_PATH, dataset_name)
 
     # Create result dir
     if not os.path.exists(result_output_dir_path):

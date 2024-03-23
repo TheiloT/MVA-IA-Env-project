@@ -1,14 +1,14 @@
 from darts.models import RandomForest
 from tqdm.auto import tqdm
 
-from helpers import run
+from waste_prediction.experiments.helpers import run
 
 DATASET_LIST = [
-    ('boralasgamuwa_uc_2012-2018', '2016-05-01 00:00:00'),
+    # ('boralasgamuwa_uc_2012-2018', '2016-05-01 00:00:00'),
     ('moratuwa_mc_2014-2018', '2017-11-01 00:00:00', '2018-06-01 00:00:00'),
-    ('dehiwala_mc_2012-2018', '2015-02-01 00:00:00'),
-    ('open_source_ballarat_daily_waste_2000_jul_2015_mar', '2008-09-01 00:00:00'),
-    ('open_source_austin_daily_waste_2003_jan_2021_jul', '2015-06-01 00:00:00')
+    # ('dehiwala_mc_2012-2018', '2015-02-01 00:00:00'),
+    # ('open_source_ballarat_daily_waste_2000_jul_2015_mar', '2008-09-01 00:00:00'),
+    # ('open_source_austin_daily_waste_2003_jan_2021_jul', '2015-06-01 00:00:00')
 ]
 
 
@@ -62,3 +62,7 @@ def run_tests():
                         run(params, generate_model_name, generate_model)
 
                         pbar.update(1)
+
+
+if __name__ == '__main__':
+    run_tests()

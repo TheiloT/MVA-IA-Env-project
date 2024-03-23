@@ -1,7 +1,7 @@
 from darts.models import TransformerModel
 from tqdm.auto import tqdm
 
-from experiments.helpers_multi import run
+from waste_prediction.experiments.helpers_multi import run
 from util.custom_progress_bar import CustomTQDMProgressBar
 
 DATASET_LIST = [
@@ -93,3 +93,7 @@ def run_tests():
                 }
                 run(params, generate_model_name, generate_model)
                 pbar.update(1)
+
+
+if __name__ == '__main__':
+    run_tests()

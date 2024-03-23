@@ -1,6 +1,6 @@
 from darts.models import AutoARIMA
 
-from helpers import run
+from waste_prediction.experiments.helpers import run
 
 DATASET_LIST = [
     # ('boralasgamuwa_uc_2012-2018', '2016-05-01 00:00:00'),

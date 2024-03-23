@@ -1,7 +1,7 @@
 from darts.models import LightGBMModel
 from tqdm.auto import tqdm
 
-from experiments.helpers_multi import run
+from waste_prediction.experiments.helpers_multi import run
 
 DATASET_LIST = [
     # ('boralasgamuwa_uc_2012-2018', '2016-05-01 00:00:00'),
@@ -53,3 +53,7 @@ def run_tests():
                     print('[Failure] n_lags:{}'.format(n_lags))
 
                 pbar.update(1)
+
+
+if __name__ == '__main__':
+    run_tests()

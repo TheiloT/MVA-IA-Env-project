@@ -1,8 +1,8 @@
 from darts.models import TCNModel
 from tqdm.auto import tqdm
 
-from helpers import run
-from util.custom_progress_bar import CustomTQDMProgressBar
+from waste_prediction.experiments.helpers import run
+from waste_prediction.util.custom_progress_bar import CustomTQDMProgressBar
 
 DATASET_LIST = [
     # ('boralasgamuwa_uc_2012-2018', '2016-05-01 00:00:00'),
@@ -92,8 +92,12 @@ def run_tests():
                         'optimizer_kwargs': {'lr': 1e-4},
                         'weight_norm': True,
                     }
-                    try:
-                        run(params, generate_model_name, generate_model)
-                    except:
-                        print('Error: {}'.format(generate_model_name(params)))
+                    # try:
+                    run(params, generate_model_name, generate_model)
+                    # except:
+                    print('Error: {}'.format(generate_model_name(params)))
                     pbar.update(1)
+
+
+if __name__ == '__main__':
+    run_tests()

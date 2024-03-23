@@ -1,0 +1,18 @@
+[project]
+name = "delires"
+version = "0.1.0"
+description = "MVA Guided Diffusion Models project for the DELIRES class"
+keywords = ["Solid Waste Prediction", "Machine Learning", "Deep Learning", "Time Series Forecasting"]
+requires-python = ">=3.10"
+
+authors = [
+    {name = "Amélie Pesnec", email = "amelie.pesnec@eleves.enpc.fr"},
+    {name = "Theïlo Terrisse", email = "theilo.terrisse@eleves.enpc.fr"},
+]
+
+[project.scripts]
+delires = "waste_prediction.__main__:main"
+
+[build-system]
+build-backend = "flit_core.buildapi"
+requires = ["flit_core >=3.2,<4"]

@@ -1,7 +1,7 @@
 from darts.models import RNNModel
 from tqdm.auto import tqdm
 
-from helpers import run
+from waste_prediction.experiments.helpers import run
 from waste_prediction.util.custom_progress_bar import CustomTQDMProgressBar
 
 DATASET_LIST = [

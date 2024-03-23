@@ -1,7 +1,7 @@
 from darts.models import RandomForest
 from tqdm.auto import tqdm
 
-from experiments.helpers_multi import run
+from waste_prediction.experiments.helpers_multi import run
 
 DATASET_LIST = [
     # ('boralasgamuwa_uc_2012-2018', '2016-05-01 00:00:00'),
@@ -48,21 +48,24 @@ def run_tests():
             for n_lags in n_lags_list:
                 for n_estimators in n_estimators_list:
                     for max_depth in max_depth_list:
-                        try:
-                            params = {
-                                'dataset_name': dataset_name,
-                                'test_calibration_split_before': test_calibration_split_before,
-                                'empirical_coverage_split_before': empirical_coverage_split_before,
-                                'only_weekdays': False,
-                                'is_differenced': False,
+                        # try:
+                        params = {
+                            'dataset_name': dataset_name,
+                            'test_calibration_split_before': test_calibration_split_before,
+                            'empirical_coverage_split_before': empirical_coverage_split_before,
+                            'only_weekdays': False,
+                            'is_differenced': False,
 
-                                'n_lags': n_lags,
-                                'n_estimators': n_estimators,
-                                'max_depth': max_depth
-                            }
-                            run(params, generate_model_name, generate_model)
-                        except:
-                            print('[Failure] n_lags:{}, n_estimators:{}, max_depth:{}'.format(n_lags, n_estimators,
-                                                                                              max_depth))
+                            'n_lags': n_lags,
+                            'n_estimators': n_estimators,
+                            'max_depth': max_depth
+                        }
+                        run(params, generate_model_name, generate_model)
+                        # except:
+                        #     print('[Failure] n_lags:{}, n_estimators:{}, max_depth:{}'.format(n_lags, n_estimators, max_depth))
 
                         pbar.update(1)
+
+
+if __name__ == '__main__':
+    run_tests()
