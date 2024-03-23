@@ -122,7 +122,7 @@ def run_tests():
                 # try:
                 run(params, generate_model_name, generate_model)
                 # except:
-                print('Error: {}'.format(generate_model_name(params)))
+                # print('Error: {}'.format(generate_model_name(params)))
                 pbar.update(1)
 
 

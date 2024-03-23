@@ -2,7 +2,7 @@ from darts.models import TransformerModel
 from tqdm.auto import tqdm
 
 from waste_prediction.experiments.helpers_multi import run
-from util.custom_progress_bar import CustomTQDMProgressBar
+from waste_prediction.util.custom_progress_bar import CustomTQDMProgressBar
 
 DATASET_LIST = [
     # ('boralasgamuwa_uc_2012-2018', '2016-05-01 00:00:00'),
