@@ -1,5 +1,5 @@
 [project]
-name = "delires"
+name = "waste_prediction"
 version = "0.1.0"
 description = "MVA Guided Diffusion Models project for the DELIRES class"
 keywords = ["Solid Waste Prediction", "Machine Learning", "Deep Learning", "Time Series Forecasting"]
@@ -11,7 +11,7 @@ authors = [
 ]
 
 [project.scripts]
-delires = "waste_prediction.__main__:main"
+waste_prediction = "waste_prediction.__main__:main"
 
 [build-system]
 build-backend = "flit_core.buildapi"
