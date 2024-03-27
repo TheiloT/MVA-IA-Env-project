@@ -92,10 +92,10 @@ def run_tests():
                         'optimizer_kwargs': {'lr': 1e-4},
                         'weight_norm': True,
                     }
-                    # try:
-                    run(params, generate_model_name, generate_model)
-                    # except:
-                    print('Error: {}'.format(generate_model_name(params)))
+                    try:
+                        run(params, generate_model_name, generate_model)
+                    except:
+                        print('Error: {}'.format(generate_model_name(params)))
                     pbar.update(1)
 
 

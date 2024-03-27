@@ -99,7 +99,7 @@ def _evaluate_model(train_series, test_series, model_list, output_dir, conformal
     print('Test predicted!')
     
     # Conformal calibration
-    raise NotImplementedError("Conformal calibration is not implemented for multi-day prediction.")
+    raise NotImplementedError("Conformal calibration was not implemented for multi-model prediction.")
     calibration_pred_rows = []
     
     calibration_day_number_list = calibration_df['day_of_week'].tolist()

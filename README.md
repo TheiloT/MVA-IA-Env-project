@@ -1,4 +1,12 @@
-# Municipal Solid Waste Prediction
+# MVA AI & Environment project: Municipal Solid Waste Prediction
+
+This is repository a fork of the implementation of ``Exploring Machine Learning and Deep Learning Approaches for Multi-Step Forecasting in Municipal Solid Waste Generation''. The original code was adapted to include computation of quantiles for conformal predictions in the single-model case.
+
+**MVA students:** Amélie PESNEC, Theïlo TERRISSE
+
+The rest of this README is from the original code of the authors.
+
+---
 
 _Municipal Solid Waste (MSW) management enact a significant role in protecting public
 health and the environment. The main objective of this paper is to explore the utility of using state-of-the-art machine learning and deep learning-based models for predicting future variations in MSW generation for a given geographical region, considering its past waste generation pattern. We consider nine different machine learning and deep-learning models to examine and evaluate their capability in forecasting the daily generated waste amount. In order to have a comprehensive evaluation, we explore the utility of two training and prediction paradigms, a single model approach and a multi-model ensemble approach. Three Sri Lankan datasets from; Boralesgamuwa, Dehiwala, and Moratuwa, and open-source daily waste datasets from the city of Austin and Ballarat, are considered in this study. In addition, we provide an in depth discussion on important considerations to make when choosing a model for predicting MSW generation._
@@ -35,6 +43,6 @@ Execute the following commands to setup the project.
 1. Go to **experiments** directory by `cd experiements`.
 2. Run the desired experiment. e.g. - `python arima.py`
 
-### Generate reports
+### Generate reports  [NOT TESTED AFTER MODIFICATIONS FOR MVA PROJECT]
 1. Go to **reports** directory by `cd reports`.
 2. Run the desired report. e.g. - `python 10_plot_image.py`
