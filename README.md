@@ -1,6 +1,6 @@
 # MVA AI & Environment project: Municipal Solid Waste Prediction
 
-This is repository a fork of the implementation of ``Exploring Machine Learning and Deep Learning Approaches for Multi-Step Forecasting in Municipal Solid Waste Generation''. The original code was adapted to include computation of quantiles for conformal predictions in the single-model case.
+This repository is a fork of the implementation of ``Exploring Machine Learning and Deep Learning Approaches for Multi-Step Forecasting in Municipal Solid Waste Generation''. The original code was adapted to include computation of quantiles for conformal predictions in the single-model case.
 
 **MVA students:** Amélie PESNEC, Theïlo TERRISSE
 
